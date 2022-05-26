@@ -1,6 +1,6 @@
 import { useState, useMemo, Fragment } from 'react'
 import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
-import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete'
+import usePlacesAutocomplete, { getGeocode, getLatLng, getDetails } from 'use-places-autocomplete'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/solid'
 
@@ -84,7 +84,18 @@ const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress 
     clearSuggestions()
     const results = await getGeocode({ address })
     const { lat, lng } = await getLatLng(results[0])
-    console.log(lat, lng)
+    const parameter = {
+      placeId: results[0].place_id
+    }
+
+    getDetails(parameter)
+      .then((details) => {
+        console.log('Details: ', details)
+      })
+      .catch((error) => {
+        console.log('Error: ', error)
+      })
+
     setSelected({ lat, lng })
     setMapCenter({ lat, lng })
     setMapZoom(18)
