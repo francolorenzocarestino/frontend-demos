@@ -109,7 +109,7 @@ const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress 
             leaveTo="opacity-0"
           >
             <Combobox.Options
-              className={`max-h-60 focus:outline-none sm:text-sm absolute w-full mt-1 overflow-auto text-base bg-white rounded-md  ${
+              className={`max-h-60 z-50 focus:outline-none sm:text-sm absolute w-full mt-1 overflow-auto text-base bg-white rounded-md  ${
                 suggestions.data.length > 0
                   ? 'ring-1 ring-black ring-opacity-5 py-1 shadow-lg'
                   : null
