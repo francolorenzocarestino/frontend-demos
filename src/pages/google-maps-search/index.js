@@ -47,14 +47,14 @@ const Map = () => {
           <div className="shadow-gray-100 md:px10 md:m-20 flex flex-col px-4 m-4 bg-white border border-gray-100 rounded-md shadow-xl">
             {address && (
               <>
-                <h2 className="text-slate-700 pb-4 mt-10 uppercase">Dirección Ingresada</h2>
+                <h2 className="text-slate-700 pb-4 mt-10 uppercase">Dirección Ingresada:</h2>
                 <p className="mb-4 text-sm font-bold text-teal-700">{address}</p>
               </>
             )}
             {addressByGoogle && (
               <>
                 <h2 className="text-slate-700 pb-4 mt-10 uppercase">
-                  Información adicional obtenida por la API de Google
+                  Información adicional obtenida por la API de Google:
                 </h2>
                 <p className="mb-4 text-sm font-bold text-teal-700">
                   {addressByGoogle?.address_components.map((item, index) => (
@@ -68,7 +68,7 @@ const Map = () => {
             )}
             {selected || coordinates ? (
               <div className="w-full py-6 text-left">
-                <h2 className="text-slate-700 pb-4 uppercase">Coordenadas</h2>
+                <h2 className="text-slate-700 pb-4 uppercase">Coordenadas:</h2>
                 <h3 className="text-slate-600 text-sm">
                   Latitud:{' '}
                   <span className="font-bold text-teal-700">
