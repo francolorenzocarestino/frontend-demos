@@ -23,6 +23,7 @@ const Map = () => {
   const [mapZoom, setMapZoom] = useState(zoom)
   const [selected, setSelected] = useState(null)
   const [address, setAddress] = useState(null)
+  const [addressByGoogle, setAddressByGoogle] = useState(null)
   const [coordinates, setCoordinates] = useState(null)
 
   const handleDrag = (event) => {
@@ -38,15 +39,31 @@ const Map = () => {
         <PlacesAutocomplete
           setSelected={setSelected}
           setAddress={setAddress}
+          setAddressByGoogle={setAddressByGoogle}
           setMapCenter={setMapCenter}
           setMapZoom={setMapZoom}
         />
-        <div className="md:pb-60 flex flex-col items-center justify-center w-full h-full text-left">
-          <div className="shadow-gray-100 flex flex-col px-10 m-20 bg-white border border-gray-100 rounded-md shadow-xl">
+        <div className="flex flex-col items-center justify-center w-full h-full text-left">
+          <div className="shadow-gray-100 md:px10 md:m-20 flex flex-col px-4 m-4 bg-white border border-gray-100 rounded-md shadow-xl">
             {address && (
               <>
-                <h2 className="text-slate-700 pb-4 mt-10 uppercase">Direccion Ingresada</h2>
+                <h2 className="text-slate-700 pb-4 mt-10 uppercase">Dirección Ingresada</h2>
                 <p className="mb-4 text-sm font-bold text-teal-700">{address}</p>
+              </>
+            )}
+            {addressByGoogle && (
+              <>
+                <h2 className="text-slate-700 pb-4 mt-10 uppercase">
+                  Información adicional obtenida por la API de Google
+                </h2>
+                <p className="mb-4 text-sm font-bold text-teal-700">
+                  {addressByGoogle?.address_components.map((item, index) => (
+                    <h3 key={index} className="text-slate-600 text-sm">
+                      {item.types[0].replace(/[_]/g, ' ').toUpperCase()}:{' '}
+                      <span className="font-bold text-teal-700">{item.long_name}</span>
+                    </h3>
+                  ))}
+                </p>
               </>
             )}
             {selected || coordinates ? (
@@ -82,7 +99,13 @@ const Map = () => {
     </main>
   )
 }
-const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress }) => {
+const PlacesAutocomplete = ({
+  setSelected,
+  setMapCenter,
+  setMapZoom,
+  setAddress,
+  setAddressByGoogle
+}) => {
   const { ready, value, setValue, suggestions, clearSuggestions } = usePlacesAutocomplete()
   const handleSelect = async (address) => {
     setValue(address, false)
@@ -95,7 +118,7 @@ const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress 
     }
     getDetails(parameter)
       .then((details) => {
-        console.log('Details: ', details)
+        setAddressByGoogle(details)
       })
       .catch((error) => {
         console.log('Error: ', error)
