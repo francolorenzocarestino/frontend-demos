@@ -41,31 +41,37 @@ const Map = () => {
           setMapCenter={setMapCenter}
           setMapZoom={setMapZoom}
         />
-        <div className="md:pb-60 flex flex-col items-center justify-center w-full h-full text-center">
-          {address && (
-            <>
-              <h2 className="text-slate-700 pb-4 mt-10 underline">Direccion Ingresada</h2>
-              <p className="mb-4 text-sm italic font-medium text-teal-900 max-w-[80ch]">
-                {address}
-              </p>
-            </>
-          )}
-          {selected || coordinates ? (
-            <div className="w-full py-6 text-center">
-              <h2 className="text-slate-700 pb-4 underline">Coordenadas</h2>
-              <h3 className="text-slate-600 text-sm italic">
-                Latitud:{' '}
-                <span className="font-bold text-teal-900">{coordinates?.lat || selected?.lat}</span>
-              </h3>
-              <h3 className="text-slate-600 text-sm italic">
-                Longitud:{' '}
-                <span className="font-bold text-teal-900">{coordinates?.lng || selected?.lng}</span>
-              </h3>
-              <p className="mt-10 text-xs text-teal-700">
-                Arrastre el marcador en el mapa para ajustar las coordenadas
-              </p>
-            </div>
-          ) : null}
+        <div className="md:pb-60 flex flex-col items-center justify-center w-full h-full text-left">
+          <div className="shadow-gray-100 flex flex-col px-10 m-20 bg-white border border-gray-100 rounded-md shadow-xl">
+            {address && (
+              <>
+                <h2 className="text-slate-700 pb-4 mt-10 uppercase">Direccion Ingresada</h2>
+                <p className="mb-4 text-sm font-bold text-teal-700">{address}</p>
+              </>
+            )}
+            {selected || coordinates ? (
+              <div className="w-full py-6 text-left">
+                <h2 className="text-slate-700 pb-4 uppercase">Coordenadas</h2>
+                <h3 className="text-slate-600 text-sm">
+                  Latitud:{' '}
+                  <span className="font-bold text-teal-700">
+                    {coordinates?.lat || selected?.lat}
+                  </span>
+                </h3>
+                <h3 className="text-slate-600 mb-10 text-sm">
+                  Longitud:{' '}
+                  <span className="font-bold text-teal-700">
+                    {coordinates?.lng || selected?.lng}
+                  </span>
+                </h3>
+                <p className="text-center">
+                  <span className="px-4 py-2 mt-10 text-[10px] font-medium text-teal-700 uppercase bg-teal-100 rounded-full">
+                    Arrastre el marcador en el mapa para ajustar las coordenadas
+                  </span>
+                </p>
+              </div>
+            ) : null}
+          </div>
         </div>
       </div>
       <div className="w-[90%] mx-auto md:w-[50%] h-96 md:h-auto my-2 md:m-6 border-2 rounded-xl border-teal-700 overflow-hidden">
@@ -87,7 +93,6 @@ const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress 
     const parameter = {
       placeId: results[0].place_id
     }
-
     getDetails(parameter)
       .then((details) => {
         console.log('Details: ', details)
@@ -95,7 +100,6 @@ const PlacesAutocomplete = ({ setSelected, setMapCenter, setMapZoom, setAddress 
       .catch((error) => {
         console.log('Error: ', error)
       })
-
     setSelected({ lat, lng })
     setMapCenter({ lat, lng })
     setMapZoom(18)
