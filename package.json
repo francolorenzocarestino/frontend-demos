@@ -14,6 +14,7 @@
     "@heroicons/react": "^1.0.6",
     "@react-google-maps/api": "^2.11.8",
     "next": "12.1.6",
+    "pure-react-carousel": "^1.28.1",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "use-places-autocomplete": "^3.0.0"

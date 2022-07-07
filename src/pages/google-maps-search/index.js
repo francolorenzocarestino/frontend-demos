@@ -3,18 +3,27 @@ import { GoogleMap, useLoadScript, Marker } from '@react-google-maps/api'
 import usePlacesAutocomplete, { getGeocode, getLatLng, getDetails } from 'use-places-autocomplete'
 import { Combobox, Transition } from '@headlessui/react'
 import { CheckIcon } from '@heroicons/react/solid'
+import Head from 'next/head'
 
-const GoogleMapsSearch = () => {
+const GoogleMapsSearchPage = () => {
   const { isLoaded } = useLoadScript({
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS,
     libraries: ['places']
   })
 
   if (!isLoaded) return <div>Loading...</div>
-  return <Map />
+  return (
+    <>
+      <Head>
+        <title>Google Maps Search</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <Map />
+    </>
+  )
 }
 
-export default GoogleMapsSearch
+export default GoogleMapsSearchPage
 
 const Map = () => {
   const center = useMemo(() => ({ lat: -34.603744, lng: -58.381688 }), [])
